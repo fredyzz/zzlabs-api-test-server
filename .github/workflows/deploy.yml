@@ -13,17 +13,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup SSH
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
-
-      - name: Deploy to EC2
+      - name: Deploy app locally on EC2
         run: |
-          ssh -o StrictHostKeyChecking=no ubuntu@51.20.175.75 << 'EOF'
-            cd ~/tu-repo
-            git pull
-            npm install
-            npx tsc
-            pm2 restart my-app
-          EOF
+          cd ~/simple-test-node-server
+          git pull
+          npm install
+          npx tsc
+          pm2 restart simple-test-node-server
