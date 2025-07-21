@@ -20,7 +20,7 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-          ssh -o StrictHostKeyChecking=no ubuntu@13.60.32.131 << 'EOF'
+          ssh -o StrictHostKeyChecking=no ubuntu@13.60.196.159 << 'EOF'
             cd ~/tu-repo
             git pull
             npm install
