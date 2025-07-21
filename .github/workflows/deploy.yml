@@ -15,7 +15,6 @@ jobs:
 
       - name: Deploy app locally on EC2
         run: |
-          cd ~/simple-test-node-server
           git pull
           npm install
           npx tsc
