@@ -1,4 +1,4 @@
-name: Deploy to EC2
+name: Deploy API
 
 on:
   push:
@@ -13,9 +13,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Deploy app locally on EC2
-        run: |
-          git pull
-          npm install
-          npx tsc
-          pm2 restart simple-test-node-server
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build TypeScript
+        run: npx tsc
+
+      - name: Restart PM2
+        run: pm2 restart zzlabs-api
