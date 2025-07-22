@@ -19,5 +19,5 @@ jobs:
       - name: Build TypeScript
         run: npx tsc
 
-      - name: Restart PM2
-        run: pm2 restart zzlabs-api
+      - name: Restart or Start PM2 process
+        run: pm2 describe zzlabs-api && pm2 restart zzlabs-api || pm2 start dist/index.js --name zzlabs-api --watch
