@@ -18,7 +18,7 @@ app.use(express.json());
 // Basic route
 app.get('/', (req: Request, res: Response<WelcomeResponse>) => {
   const response: WelcomeResponse = {
-    message: 'Welcome to the Simple Test Node Server! Now with GitHub Actions PRO MEGA EDITION 2!',
+    message: 'Welcome to the Simple Test Node Server! Now with GitHub Actions PRO MEGA EDITION 3!',
     timestamp: new Date().toISOString()
   };
   
