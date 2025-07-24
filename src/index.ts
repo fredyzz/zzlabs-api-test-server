@@ -93,10 +93,10 @@ app.use((err: Error, req: Request, res: Response<ApiResponse>, next: NextFunctio
 });
 
 // Start the server
-app.listen(PORT, () => {
+app.listen(PORT, '127.0.0.1', () => {
   console.log(`Server is running on http://localhost:${PORT}`);
   console.log('Available routes:');
   console.log('  GET  / - Welcome message');
   console.log('  GET  /api/users - Get list of users');
   console.log('  POST /api/message - Send a message');
-}); 
+});
