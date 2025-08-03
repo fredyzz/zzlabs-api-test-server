@@ -12,16 +12,16 @@ jobs:
     steps:
       - name: Pull latest code in real folder
         run: |
-          cd /home/ubuntu/zzlabs-api-test-server
+          cd /home/ubuntu/zzlabs-simple-test-node-server
           git pull origin main
 
       - name: Build Docker image
         run: |
-          cd /home/ubuntu/zzlabs-api-test-server
+          cd /home/ubuntu/zzlabs-simple-test-node-server
           docker compose build
 
       - name: Run Docker container
         run: |
-          cd /home/ubuntu/zzlabs-api-test-server
+          cd /home/ubuntu/zzlabs-simple-test-node-server
           docker compose down
           docker compose up -d
