@@ -10,28 +10,21 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - name: Pull latest code in real folder
-        run: |
-          cd /home/ubuntu/zzlabs-api-test-server
-          git pull origin main
-
-      - name: Clean old .env and pull latest code
+      # 1️⃣ Asegurarse de estar en la carpeta correcta y traer los últimos cambios
+      - name: Reset working directory to latest commit
         working-directory: /home/ubuntu/zzlabs-api-test-server
         run: |
-          rm -f .env
-          git pull origin main
+          git fetch origin
+          git reset --hard origin/main
 
-      - name: Create .env file from GH secrets
+      # 2️⃣ Crear el archivo .env a partir de los GitHub Secrets
+      - name: Create .env from GitHub Secrets
         working-directory: /home/ubuntu/zzlabs-api-test-server
         run: |
-          echo "TEST_SECRET=${{ secrets.TEST_SECRET }}" > .env
+          echo "TEST_SECRET=${{ secrets.TEST_SECRET }}" >> .env
+          # Añade aquí más secretos si los necesitás
 
-      - name: Build Docker image
-        run: |
-          cd /home/ubuntu/zzlabs-api-test-server
-          docker compose build
-
-      - name: Run Docker container
-        run: |
-          cd /home/ubuntu/zzlabs-api-test-server
-          run: make up
+      # 3️⃣ Construir y levantar los contenedores con Docker Compose
+      - name: Build and run Docker container
+        working-directory: /home/ubuntu/zzlabs-api-test-server
+        run: make up
