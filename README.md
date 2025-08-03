@@ -1,38 +1,12 @@
-# 🚀 Simple Test Node Server (TypeScript + Docker + Supabase)
+# Simple Test Node Server (TypeScript)
 
-A super basic Node.js server with Express.js and two test API routes, built with TypeScript for enhanced type safety and development experience. This project runs inside Docker and can be deployed to an EC2 instance using GitHub Actions with a self-hosted runner.
-
----
-
-## 📁 Project Structure
-
-``` text
-mi-proyecto/
-├── src/                # TypeScript source code
-├── dist/               # Compiled output (auto-generated)
-├── Dockerfile
-├── docker-compose.yml
-├── tsconfig.json
-├── .env
-├── Makefile
-├── .github/workflows/deploy.yml
-└── README.md
-```
+Un servidor Node.js minimalista con Express.js y TypeScript. Incluye rutas de prueba y soporte para despliegue con Docker, GitHub Actions y Makefile.
 
 ---
 
-## ⚙️ .env Example
+## 🧪 Comandos
 
-``` env
-DATABASE_URL=postgresql://usuario:contraseña@host.supabase.co:5432/postgres
-PORT=3000
-```
-
----
-
-## 🧪 Commands
-
-### 🧪 Local (without Docker)
+### 🔧 Local (sin Docker)
 
 ```bash
 # Instalar dependencias
@@ -48,84 +22,45 @@ npm run build
 npm start
 ```
 
-### 🐳 Docker (local or production)
+---
+
+### 🐳 Con Docker
 
 ```bash
-# Construir la imagen
-docker compose build
+# Modo desarrollo (con autorecarga)
+make dev
 
-# Levantar el contenedor en segundo plano
-docker compose up -d
+# Detener contenedor de desarrollo
+make dev-down
 
-# Ver logs en tiempo real
-docker compose logs -f
+# Producción (compilar y levantar contenedor)
+make up
 
-# Detener los contenedores
-docker compose down
-```
+# Detener contenedor de producción
+make down
 
-### 🛠️ Makefile (opcional)
-
-```bash
-make build      # docker compose build
-make up         # docker compose up -d
-make down       # docker compose down
-make restart    # reinicia la app (down → build → up)
-make logs       # muestra logs en vivo
-```
-
-### ☁️ Manual deployment on EC2
-
-```bash
-cd /home/ubuntu/proyectos/mi-proyecto
-git pull origin main
-docker compose down
-docker compose build
-docker compose up -d
-```
-
-### 🔄 GitHub Actions (self-hosted runner)
-
-```bash
-# Start the runner manually (if not running)
-cd ~/actions-runner
-./run.sh
-```
-
-Or using PM2:
-
-```bash
-pm2 start ./run.sh --name github-runner
-pm2 save
-```
-
-Or using systemd:
-
-```bash
-sudo systemctl enable github-runner
-sudo systemctl start github-runner
+# Ver logs de producción
+make logs
 ```
 
 ---
 
-## 🧰 Deployment Setup Summary
+## 🚀 Deploy automático con GitHub Actions
 
-- Uses Docker and Docker Compose for containerization
-- Connected to Supabase as the external Postgres database
-- Deployed to an EC2 instance with a GitHub self-hosted runner
-- Supports multiple projects using Nginx and subdomains
-- Includes HTTPS with Let’s Encrypt (optional via Nginx config)
+En cada `push` a `main`, tu servidor autoejecutará:
 
----
-
-## 📌 To Do
-
-- [ ] Add automated tests
-- [ ] Set up staging environment
-- [ ] Configure health checks
+- `git reset --hard origin/main`
+- Creación de `.env` con los `GitHub Secrets`
+- `make up` para build y deploy con Docker
 
 ---
 
-## ✍️ Author
+## 📦 Variables de entorno
 
-Built with ❤️ by [Tu Nombre]
+Definidas como **Secrets** en GitHub:
+
+- `PORT`
+- `TEST_SECRET`
+- `DATABASE_URL` (si aplica)
+
+Se escriben automáticamente en un `.env` en cada deploy.
