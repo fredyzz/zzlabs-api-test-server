@@ -28,5 +28,4 @@ jobs:
       - name: Run Docker container
         run: |
           cd /home/ubuntu/zzlabs-api-test-server
-          docker compose down
-          docker compose up -d
+          run: make up

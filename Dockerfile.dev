@@ -1,0 +1,12 @@
+FROM node:20-alpine
+
+# Crear carpeta de trabajo
+WORKDIR /app
+
+# Copiar solo package.json y tsconfig.json
+COPY package*.json tsconfig.json ./
+
+# Instalar dependencias
+RUN npm install
+
+# No copiamos el código, porque lo montamos desde el host con `volumes`
