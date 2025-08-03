@@ -15,16 +15,13 @@ jobs:
           cd /home/ubuntu/zzlabs-api-test-server
           git pull origin main
 
-      - name: Install dependencies
+      - name: Build Docker image
         run: |
           cd /home/ubuntu/zzlabs-api-test-server
-          npm install
+          docker compose build
 
-      - name: Build TypeScript
+      - name: Run Docker container
         run: |
           cd /home/ubuntu/zzlabs-api-test-server
-          npx tsc
-
-      - name: Restart or Start PM2 process
-        run: |
-          pm2 describe zzlabs-api && pm2 restart zzlabs-api || pm2 start /home/ubuntu/zzlabs-api-test-server/dist/index.js --name zzlabs-api --watch
+          docker compose down
+          docker compose up -d
