@@ -15,10 +15,16 @@ jobs:
           cd /home/ubuntu/zzlabs-api-test-server
           git pull origin main
 
+      - name: Clean old .env and pull latest code
+        working-directory: /home/ubuntu/zzlabs-api-test-server
+        run: |
+          rm -f .env
+          git pull origin main
+
       - name: Create .env file from GH secrets
+        working-directory: /home/ubuntu/zzlabs-api-test-server
         run: |
           echo "TEST_SECRET=${{ secrets.TEST_SECRET }}" > .env
-        working-directory: /home/ubuntu/zzlabs-api-test-server
 
       - name: Build Docker image
         run: |
